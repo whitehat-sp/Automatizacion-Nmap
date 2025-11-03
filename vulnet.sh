@@ -74,11 +74,11 @@ cve-vulscan(){
 scan_host_tcp(){
     
     #Scannint TCP
-    mkdir ~/Downloads/auto_nmap
-    cd ~/Download/auto_nmap
+    mkdir /home/kali/Downloads/auto_nmap
+    cd /home/kali/Downloads/auto_nmap
     echo -e "\n"
     echo -e "\t[*]Realizando escaner  ${YELLOW}TCP${RESET} de servicios en la maquina remota ${YELLOW}${IP_HOST}${RESET}." 
-    sudo nmap -vv -T5 -sS -Pn -sV -p1-65535 -n  --script=vulscan --script-args=vulscandb=scipvuldb.csv -oA scan_tcp_host "$IP_HOST"
+    sudo nmap -vv -T5 -sS -Pn -sV -p1-65535 -n  --script=vulscan/vulscan.nse --script-args=vulscandb=scipvuldb.csv -oA scan_tcp_host "$IP_HOST"
     echo -e "\t[*]${GREEN}DONE${RESET}"
 
 }
@@ -89,7 +89,7 @@ scan_host_udp(){
     #Scanning UDP
     echo -e "\n"
     echo -e "\t[*]Realizando escaner  ${YELLOW}UDP${RESET} de servicios en la maquina remota ${YELLOW}${IP_HOST}${RESET}"  
-    sudo nmap -vv -T5 -sU -Pn  -sV -p1-65535 -n --script=vulscan --script-args=vulscandb=scipvuldb.csv -oA scan_udp_host "$IP_HOST"
+    sudo nmap -vv -T5 -sU -Pn  -sV -p1-65535 -n --script=vulscan/vulscan.nse --script-args=vulscandb=scipvuldb.csv -oA scan_udp_host "$IP_HOST"
     echo -e "\t[*]${GREEN}DONE${RESET}"
 
     sleep 4
@@ -232,6 +232,7 @@ parse_searchsploit(){
 
 additional_packages
 check_ip
+cve-vulscan
 scan_host_tcp
 scan_host_udp
 parse_searchsploit
